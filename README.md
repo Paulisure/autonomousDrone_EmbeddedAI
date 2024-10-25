@@ -1,99 +1,109 @@
-# Autonomous Drone Project - Object Detection Using OpenCV and ONNX
+# Autonomous Drone Project - Real-time Object Detection with Hardware Acceleration
 
 ## Overview
-This project is part of an autonomous drone system for real-time object detection and navigation. In this module, we demonstrate object detection using a pre-trained YOLOv5 model, which has been exported to ONNX format for optimized inference using OpenCV and ONNX Runtime.
-
+This project demonstrates real-time object detection using YOLOv5 with various hardware acceleration methods. We implement and compare CPU, CUDA, and TensorRT approaches to achieve optimal performance for autonomous drone applications.
 
 https://github.com/user-attachments/assets/256bc449-6d8f-4b31-a971-4335b83dabce
 
 
-Performance Comparison
-ImplementationAverage FPSInference Time (ms)ImprovementCPU Only12201.4BaselineCUDA2575.22.7x fasterTensorRT1327.5726.6x faster
-Detailed Performance Metrics
-CPU Implementation
+## Performance Comparison
 
-Average FPS: 12
-Inference Time: 201.4ms
-Suitable for basic testing and development
+| Implementation | Average FPS | Inference Time (ms) | Improvement |
+|----------------|-------------|---------------------|-------------|
+| CPU Only | 12 | 201.4 | Baseline |
+| CUDA | 25 | 75.2 | 2.7x faster |
+| TensorRT | 132 | 7.57 | 26.6x faster |
 
-CUDA Implementation
+### Detailed Performance Metrics
 
-Average FPS: 25
-Inference Time: 75.2ms
-62.65% improvement over CPU
-Good for real-time applications
+#### CPU Implementation
+- Average FPS: 12
+- Inference Time: 201.4ms
+- Suitable for basic testing and development
 
-TensorRT Implementation
+#### CUDA Implementation
+- Average FPS: 25
+- Inference Time: 75.2ms
+- 62.65% improvement over CPU
+- Good for real-time applications
 
-Average FPS: 132
-Inference Time: 7.57ms
-96.24% improvement over CPU
-Optimal for high-performance requirements
-Success Rate: 100%
-Standard Deviation: 4.90ms
+#### TensorRT Implementation
+- Average FPS: 132
+- Inference Time: 7.57ms
+- 96.24% improvement over CPU
+- Optimal for high-performance requirements
+- Success Rate: 100%
+- Standard Deviation: 4.90ms
 
-Requirements
+## Requirements
+- Python 3.8+
+- OpenCV
+- CUDA Toolkit 11.4+
+- TensorRT 8.0+
+- NVIDIA GPU with CUDA support
+- Pre-trained YOLOv5 model
 
-Python 3.8+
-OpenCV
-CUDA Toolkit 11.4+
-TensorRT 8.0+
-NVIDIA GPU with CUDA support
-Pre-trained YOLOv5 model
+## Installation
 
-Installation
-
-Clone the repository:
-
-bashCopygit clone https://github.com/paulisure/AutonomousDrone-EmbeddedAI.git
+1. Clone the repository:
+```bash
+git clone https://github.com/paulisure/AutonomousDrone-EmbeddedAI.git
 cd AutonomousDrone-EmbeddedAI/object_detection
+```
 
-Install dependencies:
+2. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
 
-bashCopypip install -r requirements.txt
+3. Install CUDA and TensorRT (for accelerated versions)
 
-Install CUDA and TensorRT (for accelerated versions)
+## Running Different Implementations
 
-Running Different Implementations
-CPU Version
-bashCopypython object_detection_cpu.py
-CUDA Version
-bashCopypython object_detection_cuda.py
-TensorRT Version
-bashCopy# First, convert model to TensorRT
+### CPU Version
+```bash
+python object_detection_cpu.py
+```
+
+### CUDA Version
+```bash
+python object_detection_cuda.py
+```
+
+### TensorRT Version
+```bash
+# First, convert model to TensorRT
 python convert_to_tensorrt.py
 
 # Then run detection
 python object_detection_tensorrt.py
-Implementation Details
-CPU Implementation
+```
 
-Basic implementation using OpenCV and ONNX Runtime
-No hardware acceleration
-Suitable for development and testing
+## Implementation Details
 
-CUDA Implementation
+### CPU Implementation
+- Basic implementation using OpenCV and ONNX Runtime
+- No hardware acceleration
+- Suitable for development and testing
 
-Utilizes NVIDIA CUDA for GPU acceleration
-Significant performance improvement over CPU
-Good balance of performance and implementation complexity
+### CUDA Implementation
+- Utilizes NVIDIA CUDA for GPU acceleration
+- Significant performance improvement over CPU
+- Good balance of performance and implementation complexity
 
-TensorRT Implementation
+### TensorRT Implementation
+- Highest performance implementation
+- Optimized for NVIDIA GPUs
+- Features:
+  - FP16 precision support
+  - Optimized layer fusion
+  - Efficient memory management
+  - Asynchronous inference
+  - Batch processing capability
 
-Highest performance implementation
-Optimized for NVIDIA GPUs
-Features:
-
-FP16 precision support
-Optimized layer fusion
-Efficient memory management
-Asynchronous inference
-Batch processing capability
-
-
-
-Project Structure
-Copyobject_detection/
+## Project Structure
+```
+object_detection/
 ├── models/
 │   ├── yolov5s.onnx
 │   └── yolov5s.trt
@@ -104,14 +114,15 @@ Copyobject_detection/
 ├── utils/
 │   └── convert_to_tensorrt.py
 └── README.md
+```
 
-Future Improvements
+## Future Improvements
+- Multi-GPU support
+- Batch processing optimization
+- Model quantization
+- Docker containerization
 
-Multi-GPU support
-Batch processing optimization
-Model quantization
-Docker containerization
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-License
-This project is licensed under the MIT License - see the LICENSE file for details.
 
